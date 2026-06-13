@@ -1,122 +1,111 @@
 
-# 🧬 Menstrual Cycle Transcriptomics
-### *What drives the proteins? A gene expression investigation.*
+# 🧬 # The Cycle Code
+### *A transcriptomic investigation into the most overlooked rhythm in human biology*
 
 ---
 
-## The Motivation
-
-In April 2026, Riishede et al. published a landmark study in *Nature Medicine* showing that **198 proteins fluctuate in synchronized patterns across the menstrual cycle** — affecting immune function, metabolism, cardiovascular regulation, and neurological signaling.
-
-Their finding raised an immediate upstream question:
-
-> **What is happening at the gene expression level that drives these protein fluctuations?**
-
-This project investigates exactly that — using publicly available transcriptomic data to map which genes are differentially expressed across menstrual cycle phases, and what biological pathways they belong to.
-
-Proteins tell us *what* changed. Genes tell us *why*.
+> *In April 2026, a paper dropped in Nature Medicine that should have been front page news.*
+> *198 proteins. Fluctuating. Synchronized. Every single month.*
+> *The female body is not static. It never was.*
+> *So I asked the next question nobody was asking:*
+> **What is happening at the gene level that drives all of this?**
 
 ---
 
-## Project Overview
 
-| Item | Detail |
+
+For decades, medical research has treated the female body as a stable system — one set of values, one standard dose, one biological baseline.
+
+That assumption just got shattered.
+
+Riishede et al. (Nature Medicine, 2026) mapped nearly 3,000 proteins across the menstrual cycle and found that 198 of them fluctuate in coordinated, rhythmic patterns every month — touching immune function, metabolism, cardiovascular regulation, neurological signaling, and more.
+
+The menstrual cycle isn't a reproductive event.  
+**It's a whole-body biological conductor.**
+
+Their work answered *what* changes.  
+This project goes upstream to answer ***why.***
+
+---
+
+
+
+Proteins don't appear from nowhere. They are built from instructions — genes that switch on and off, turn loud and quiet, in patterns we are only beginning to decode.
+
+This project uses publicly available transcriptomic data (NCBI GEO: GSE7305) to map gene expression across menstrual cycle phases in human endometrial tissue. Built entirely in R using the tidyverse ecosystem — clean, reproducible, and open source.
+
+The question driving every line of code:
+
+> *Which genes are orchestrating the monthly biological shift — and what do they tell us about disease, drug response, and precision medicine?*
+
+---
+
+## The Stack
+
+| Layer | Tool |
 |---|---|
-| **Data Source** | NCBI GEO — GSE7305 |
-| **Organism** | *Homo sapiens* |
-| **Tissue** | Endometrium |
-| **Cycle Phases** | Follicular, Ovulatory, Luteal |
-| **Tools** | R, tidyverse, GEOquery, ggplot2 |
-| **Analysis Type** | Exploratory transcriptomic analysis + visualization |
+| Data Access | GEOquery |
+| Wrangling | dplyr, tidyr, readr |
+| Feature Engineering | mutate(), case_when() |
+| Visualization | ggplot2 |
+| Environment | R / Google Colab |
+| Data Source | NCBI GEO — GSE7305 |
 
 ---
 
-## Why This Matters Clinically
-
-The menstrual cycle is not a reproductive side feature — it is a **whole-body biological rhythm**. Yet most drugs are dosed as though female biology is static throughout the month.
-
-This has implications for:
-- Antidepressants and ADHD medications
-- Pain management
-- Oncology drugs and immunotherapies
-- Cardiovascular treatments
-
-Understanding the transcriptomic architecture behind cyclic biology is a step toward **sex-aware, phase-aware precision medicine**.
-
----
-
-## Pipeline
+## The Pipeline
 
 ```
-GEO Data (GSE7305)
+📥  Pull raw expression data from NCBI GEO
         ↓
-   Data Import (GEOquery)
+🧹  Clean metadata — label cycle phases, remove noise  
         ↓
-   Cleaning & Preprocessing (tidyverse)
+🔍  Exploratory analysis — distributions, outliers, patterns
         ↓
-   Exploratory Data Analysis (dplyr, ggplot2)
+📊  Differential expression — which genes change between phases?
         ↓
-   Differential Expression (by cycle phase)
+🌋  Visualize — heatmaps, volcano plots, expression timelines
         ↓
-   Visualization (ggplot2 — heatmap, volcano plot, expression timeline)
-        ↓
-   Biological Interpretation
+🧠  Interpret — what biology do these genes point to?
 ```
 
 ---
 
-## Visualizations
+## The Visualizations
 
-*(Coming soon — plots will be added as analysis progresses)*
+*(Updating as analysis progresses)*
 
-- 📊 Gene expression heatmap across cycle phases
-- 🌋 Volcano plot of differentially expressed genes
-- 📈 Expression timeline of top cycling genes
-- 🔬 Pathway enrichment summary
-
----
-
-## Repository Structure
-
-```
-menstrual-cycle-transcriptomics/
-│
-├── README.md
-├── data/
-│   └── (GEO data — loaded programmatically, not stored here)
-├── scripts/
-│   ├── 01_data_import.R
-│   ├── 02_preprocessing.R
-│   ├── 03_eda.R
-│   └── 04_visualization.R
-└── figures/
-    └── (output plots)
-```
+- 🌋 **Volcano plot** — significant genes across cycle phases
+- 🔥 **Heatmap** — expression landscape across all samples
+- 📈 **Timeline plot** — top cycling genes across phases
+- 🔬 **Pathway summary** — what biological systems are involved
 
 ---
 
-## Tools & Packages
+## The Bigger Picture
 
-- **R** — primary analysis language
-- **GEOquery** — programmatic access to NCBI GEO datasets
-- **tidyverse** — data wrangling (dplyr, tidyr, readr)
-- **ggplot2** — publication-quality visualizations
-- **stringr** — string manipulation for metadata cleaning
+If 198 proteins shift rhythmically every month — including immune regulators, vascular signaling molecules, and metabolic enzymes — then a woman's response to antidepressants, pain medication, chemotherapy, or anesthesia may not be the same in week 1 as it is in week 3.
+
+Most clinical trials still don't account for this.  
+Most drug dosing protocols don't either.
+
+**This project is a small contribution to changing that.**
 
 ---
 
 ## Reference
 
-Riishede I et al. *Plasma proteomic signature of the human menstrual cycle.* Nature Medicine. April 13, 2026. doi:10.1038/s41591-026-04326-5
+Riishede I et al. *Plasma proteomic signature of the human menstrual cycle.* Nature Medicine. April 13, 2026.  
+doi:10.1038/s41591-026-04326-5
 
 ---
 
 ## Author
 
-**Shruti Banerjee**
-MSc Bioinformatics | Transcriptomics & Computational Biology
+**Shruti Banerjee**  
+MSc Bioinformatics — Transcriptomics & Computational Biology  
 [GitHub](https://github.com/shruti-banerjee) • [LinkedIn](https://linkedin.com/in/shruti-banerjee)
 
 ---
 
-*This project was developed as part of a Computational Biology internship and independent portfolio work.*
+*Built during a Computational Biology internship. Driven by curiosity about what we still don't know about female biology.*
