@@ -1,6 +1,6 @@
 # Menstrual Cycle Transcriptomics — Gene Expression Across Cycle Phases
 
-### Computational Biology Internship Project | June 2025
+### Computational Biology Internship Project | June 2026
 
 **Author:** Shruti Banerjee  
 **Tools:** R · tidyverse · GEOquery · ggplot2  
