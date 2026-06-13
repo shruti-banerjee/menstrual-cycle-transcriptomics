@@ -1,111 +1,196 @@
+# Menstrual Cycle Transcriptomics — Gene Expression Across Cycle Phases
 
-# 🧬 # The Cycle Code
-### *A transcriptomic investigation into the most overlooked rhythm in human biology*
+### Computational Biology Internship Project | June 2025
 
----
-
-> *In April 2026, a paper dropped in Nature Medicine that should have been front page news.*
-> *198 proteins. Fluctuating. Synchronized. Every single month.*
-> *The female body is not static. It never was.*
-> *So I asked the next question nobody was asking:*
-> **What is happening at the gene level that drives all of this?**
+**Author:** Shruti Banerjee  
+**Tools:** R · tidyverse · GEOquery · ggplot2  
+**Data Source:** NCBI GEO — GSE7305
 
 ---
 
+## Overview
 
+In April 2026, Riishede et al. (*Nature Medicine*) mapped nearly 3,000 proteins across the menstrual cycle and found that **198 proteins fluctuate in synchronized patterns throughout the month** — touching immune function, metabolism, cardiovascular regulation, and neurological signalling.
 
-For decades, medical research has treated the female body as a stable system — one set of values, one standard dose, one biological baseline.
+Their finding raised an immediate upstream question:
 
-That assumption just got shattered.
+> **What is happening at the gene expression level that drives these protein fluctuations?**
 
-Riishede et al. (Nature Medicine, 2026) mapped nearly 3,000 proteins across the menstrual cycle and found that 198 of them fluctuate in coordinated, rhythmic patterns every month — touching immune function, metabolism, cardiovascular regulation, neurological signaling, and more.
+This project investigates exactly that — using publicly available transcriptomic data to identify differentially expressed genes across menstrual cycle phases and map the biological pathways involved.
 
-The menstrual cycle isn't a reproductive event.  
-**It's a whole-body biological conductor.**
-
-Their work answered *what* changes.  
-This project goes upstream to answer ***why.***
+Proteins tell us *what* changed. Genes tell us *why.*
 
 ---
 
+## Background & Clinical Relevance
 
+The menstrual cycle is not a reproductive side event — it is a **whole-body biological rhythm**. Yet most clinical drug dosing treats the female body as biologically static throughout the month.
 
-Proteins don't appear from nowhere. They are built from instructions — genes that switch on and off, turn loud and quiet, in patterns we are only beginning to decode.
+If immune regulators, metabolic enzymes, and vascular signalling molecules fluctuate rhythmically, then a woman's response to medication may differ between week 1 and week 3. This has implications for:
 
-This project uses publicly available transcriptomic data (NCBI GEO: GSE7305) to map gene expression across menstrual cycle phases in human endometrial tissue. Built entirely in R using the tidyverse ecosystem — clean, reproducible, and open source.
+- Antidepressants and ADHD medications
+- Pain management and anaesthesia
+- Oncology drugs and immunotherapies
+- Cardiovascular treatments and vaccines
 
-The question driving every line of code:
-
-> *Which genes are orchestrating the monthly biological shift — and what do they tell us about disease, drug response, and precision medicine?*
+This project is a contribution toward **sex-aware, phase-aware precision medicine.**
 
 ---
 
-## The Stack
+## Dataset
 
-| Layer | Tool |
+| Parameter | Detail |
 |---|---|
-| Data Access | GEOquery |
-| Wrangling | dplyr, tidyr, readr |
-| Feature Engineering | mutate(), case_when() |
-| Visualization | ggplot2 |
-| Environment | R / Google Colab |
-| Data Source | NCBI GEO — GSE7305 |
+| **GEO Accession** | GSE7305 |
+| **Organism** | *Homo sapiens* |
+| **Tissue** | Endometrium |
+| **Platform** | Affymetrix Human Genome U133 Plus 2.0 |
+| **Cycle Phases** | Follicular · Ovulatory · Luteal |
+| **Access** | Programmatic via GEOquery — no manual download required |
 
 ---
 
-## The Pipeline
+## Pipeline
 
 ```
-📥  Pull raw expression data from NCBI GEO
+Raw Expression Data (NCBI GEO — GSE7305)
         ↓
-🧹  Clean metadata — label cycle phases, remove noise  
+Data Import (GEOquery)
         ↓
-🔍  Exploratory analysis — distributions, outliers, patterns
+Metadata Extraction & Phase Labelling (dplyr)
         ↓
-📊  Differential expression — which genes change between phases?
+Data Cleaning & Normalisation (tidyr, mutate())
         ↓
-🌋  Visualize — heatmaps, volcano plots, expression timelines
+Exploratory Data Analysis (ggplot2)
         ↓
-🧠  Interpret — what biology do these genes point to?
+Differential Expression by Cycle Phase
+        ↓
+Visualisation — Heatmap · Volcano Plot · Expression Timeline
+        ↓
+Biological Interpretation
 ```
 
 ---
 
-## The Visualizations
+## Tools & Technologies
+
+**Data Access & Wrangling**
+
+![GEOquery](https://img.shields.io/badge/GEOquery-Bioconductor-brightgreen?style=flat)
+![dplyr](https://img.shields.io/badge/dplyr-tidyverse-blue?style=flat)
+![tidyr](https://img.shields.io/badge/tidyr-tidyverse-blue?style=flat)
+![readr](https://img.shields.io/badge/readr-tidyverse-blue?style=flat)
+
+**Visualisation**
+
+![ggplot2](https://img.shields.io/badge/ggplot2-R-276DC3?style=flat)
+![stringr](https://img.shields.io/badge/stringr-tidyverse-blue?style=flat)
+
+**Environment**
+
+![R](https://img.shields.io/badge/R-276DC3?style=flat&logo=r&logoColor=white)
+![Google Colab](https://img.shields.io/badge/Google_Colab-cloud-orange?style=flat)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)
+
+**Database**
+
+![NCBI GEO](https://img.shields.io/badge/NCBI-GEO-red?style=flat)
+
+---
+
+## Results
 
 *(Updating as analysis progresses)*
 
-- 🌋 **Volcano plot** — significant genes across cycle phases
-- 🔥 **Heatmap** — expression landscape across all samples
-- 📈 **Timeline plot** — top cycling genes across phases
-- 🔬 **Pathway summary** — what biological systems are involved
+### Differentially Expressed Genes
+
+| Comparison | DEGs Identified | Upregulated | Downregulated |
+|---|---|---|---|
+| Follicular vs Luteal | — | — | — |
+| Follicular vs Ovulatory | — | — | — |
+| Luteal vs Ovulatory | — | — | — |
+
+### Top Cycling Genes
+
+| Gene | Phase Pattern | Biological Function |
+|---|---|---|
+| — | — | — |
 
 ---
 
-## The Bigger Picture
+## Visualisations
 
-If 198 proteins shift rhythmically every month — including immune regulators, vascular signaling molecules, and metabolic enzymes — then a woman's response to antidepressants, pain medication, chemotherapy, or anesthesia may not be the same in week 1 as it is in week 3.
+*(Charts will be added as analysis progresses)*
 
-Most clinical trials still don't account for this.  
-Most drug dosing protocols don't either.
+### Gene Expression Heatmap
+> Expression levels of top variable genes across cycle phases
 
-**This project is a small contribution to changing that.**
+### Volcano Plot
+> Differentially expressed genes — fold change vs statistical significance
+
+### Expression Timeline
+> Top cycling genes plotted across follicular → ovulatory → luteal phases
+
+---
+
+## Repository Structure
+
+```
+menstrual-cycle-transcriptomics/
+│
+├── README.md
+├── scripts/
+│   ├── 01_data_import.R
+│   ├── 02_preprocessing.R
+│   ├── 03_eda.R
+│   └── 04_visualization.R
+└── figures/
+    └── (output plots)
+```
+
+---
+
+## How to Reproduce
+
+**In Google Colab (R):**
+
+```r
+%%R
+install.packages("BiocManager")
+BiocManager::install("GEOquery")
+library(GEOquery)
+library(tidyverse)
+
+gse <- getGEO("GSE7305", GSEMatrix = TRUE)
+```
+
+**In R / RStudio:**
+
+```r
+install.packages("BiocManager")
+BiocManager::install("GEOquery")
+library(GEOquery)
+library(tidyverse)
+
+gse <- getGEO("GSE7305", GSEMatrix = TRUE)
+```
 
 ---
 
 ## Reference
 
-Riishede I et al. *Plasma proteomic signature of the human menstrual cycle.* Nature Medicine. April 13, 2026.  
-doi:10.1038/s41591-026-04326-5
+Riishede I et al. *Plasma proteomic signature of the human menstrual cycle.* Nature Medicine. April 13, 2026. doi:10.1038/s41591-026-04326-5
 
 ---
 
-## Author
+## Key Biological Question
 
-**Shruti Banerjee**  
-MSc Bioinformatics — Transcriptomics & Computational Biology  
-[GitHub](https://github.com/shruti-banerjee) • [LinkedIn](https://linkedin.com/in/shruti-banerjee)
+This project sits upstream of the Riishede et al. findings. Where their proteomics work reveals *what* fluctuates, transcriptomics reveals *what is driving it* — the gene regulatory architecture behind the monthly biological shift.
+
+Understanding this layer is essential for moving medicine from population-level averages toward **phase-aware, sex-informed treatment.**
 
 ---
 
-*Built during a Computational Biology internship. Driven by curiosity about what we still don't know about female biology.*
+**Shruti Banerjee** · [banerjee.shruti1306@gmail.com](mailto:banerjee.shruti1306@gmail.com) · [GitHub](https://github.com/shruti-banerjee)
+
+*Developed as part of a Computational Biology internship — June 2025.*
