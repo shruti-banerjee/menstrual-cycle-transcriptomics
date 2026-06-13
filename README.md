@@ -193,4 +193,4 @@ Understanding this layer is essential for moving medicine from population-level 
 
 **Shruti Banerjee** · [banerjee.shruti1306@gmail.com](mailto:banerjee.shruti1306@gmail.com) · [GitHub](https://github.com/shruti-banerjee)
 
-*Developed as part of a Computational Biology internship — June 2025.*
+*Developed as part of a Computational Biology internship — June 2026.*
