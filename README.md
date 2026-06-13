@@ -1,6 +1,6 @@
-# Menstrual Cycle Transcriptomics — Gene Expression Across Cycle Phases
+# Menstrual Cycle Transcriptomics Pipeline
 
-### Computational Biology Internship Project | June 2026
+### Computational Biology Internship Project | NexoraGroup | June 2026
 
 **Author:** Shruti Banerjee  
 **Tools:** R · tidyverse · GEOquery · ggplot2  
@@ -12,28 +12,32 @@
 
 In April 2026, Riishede et al. (*Nature Medicine*) mapped nearly 3,000 proteins across the menstrual cycle and found that **198 proteins fluctuate in synchronized patterns throughout the month** — touching immune function, metabolism, cardiovascular regulation, and neurological signalling.
 
-Their finding raised an immediate upstream question:
+Their finding raised two immediate questions:
 
 > **What is happening at the gene expression level that drives these protein fluctuations?**
+> **And why hasn't anyone built a clean, reproducible pipeline to investigate it?**
 
-This project investigates exactly that — using publicly available transcriptomic data to identify differentially expressed genes across menstrual cycle phases and map the biological pathways involved.
+This project does both.
 
-Proteins tell us *what* changed. Genes tell us *why.*
+It is simultaneously a **transcriptomic analysis** of gene expression across menstrual cycle phases and a **modular, reusable R pipeline** that can be pointed at any GEO dataset by changing a single configuration file.
+
+Proteins tell us *what* changed. Genes tell us *why.*  
+And a good pipeline means anyone can ask the same question — for any condition, any tissue, any dataset.
 
 ---
 
 ## Background & Clinical Relevance
 
-The menstrual cycle is not a reproductive side event — it is a **whole-body biological rhythm**. Yet most clinical drug dosing treats the female body as biologically static throughout the month.
+The menstrual cycle is not a reproductive side event — it is a **whole-body biological rhythm.** Yet most clinical drug dosing treats the female body as biologically static throughout the month.
 
-If immune regulators, metabolic enzymes, and vascular signalling molecules fluctuate rhythmically, then a woman's response to medication may differ between week 1 and week 3. This has implications for:
+If 198 proteins fluctuate rhythmically — including immune regulators, metabolic enzymes, and vascular signalling molecules — then a woman's response to medication may differ between week 1 and week 3. This has implications for:
 
 - Antidepressants and ADHD medications
 - Pain management and anaesthesia
 - Oncology drugs and immunotherapies
 - Cardiovascular treatments and vaccines
 
-This project is a contribution toward **sex-aware, phase-aware precision medicine.**
+This project contributes toward **sex-aware, phase-aware precision medicine** — and toward making that research accessible and reproducible.
 
 ---
 
@@ -50,25 +54,23 @@ This project is a contribution toward **sex-aware, phase-aware precision medicin
 
 ---
 
-## Pipeline
+## Pipeline Architecture
 
 ```
-Raw Expression Data (NCBI GEO — GSE7305)
-        ↓
-Data Import (GEOquery)
-        ↓
-Metadata Extraction & Phase Labelling (dplyr)
-        ↓
-Data Cleaning & Normalisation (tidyr, mutate())
-        ↓
-Exploratory Data Analysis (ggplot2)
-        ↓
-Differential Expression by Cycle Phase
-        ↓
-Visualisation — Heatmap · Volcano Plot · Expression Timeline
-        ↓
-Biological Interpretation
+config.R  ←  Change dataset, phases, or thresholds here
+    ↓
+01_data_import.R      — Pull any GEO dataset programmatically
+    ↓
+02_preprocess.R       — Clean metadata, label phases, normalise
+    ↓
+03_eda.R              — Exploratory analysis, distributions, QC
+    ↓
+04_visualize.R        — Publication-ready figures
+    ↓
+figures/ + outputs/   — All results saved automatically
 ```
+
+> **Engineer note:** The entire pipeline is driven by `config.R`. Swap the GEO accession number and re-run — the pipeline adapts. No hardcoded values anywhere in the analysis scripts.
 
 ---
 
@@ -80,11 +82,11 @@ Biological Interpretation
 ![dplyr](https://img.shields.io/badge/dplyr-tidyverse-blue?style=flat)
 ![tidyr](https://img.shields.io/badge/tidyr-tidyverse-blue?style=flat)
 ![readr](https://img.shields.io/badge/readr-tidyverse-blue?style=flat)
+![stringr](https://img.shields.io/badge/stringr-tidyverse-blue?style=flat)
 
 **Visualisation**
 
 ![ggplot2](https://img.shields.io/badge/ggplot2-R-276DC3?style=flat)
-![stringr](https://img.shields.io/badge/stringr-tidyverse-blue?style=flat)
 
 **Environment**
 
@@ -95,6 +97,26 @@ Biological Interpretation
 **Database**
 
 ![NCBI GEO](https://img.shields.io/badge/NCBI-GEO-red?style=flat)
+
+---
+
+## Repository Structure
+
+```
+menstrual-cycle-transcriptomics/
+│
+├── README.md
+├── config.R                  ← dataset ID, phase labels, thresholds
+├── scripts/
+│   ├── 01_data_import.R      ← GEOquery pull + raw data export
+│   ├── 02_preprocess.R       ← cleaning, normalisation, phase labelling
+│   ├── 03_eda.R              ← exploratory analysis + QC plots
+│   └── 04_visualize.R        ← heatmap, volcano plot, timeline
+├── functions/
+│   └── utils.R               ← reusable helper functions
+├── figures/                  ← all output plots saved here
+└── outputs/                  ← results tables saved here
+```
 
 ---
 
@@ -123,7 +145,7 @@ Biological Interpretation
 *(Charts will be added as analysis progresses)*
 
 ### Gene Expression Heatmap
-> Expression levels of top variable genes across cycle phases
+> Expression levels of top variable genes across all samples, grouped by cycle phase
 
 ### Volcano Plot
 > Differentially expressed genes — fold change vs statistical significance
@@ -133,47 +155,48 @@ Biological Interpretation
 
 ---
 
-## Repository Structure
+## How to Reproduce
 
+**Step 1 — Clone the repo**
 ```
-menstrual-cycle-transcriptomics/
-│
-├── README.md
-├── scripts/
-│   ├── 01_data_import.R
-│   ├── 02_preprocessing.R
-│   ├── 03_eda.R
-│   └── 04_visualization.R
-└── figures/
-    └── (output plots)
+git clone https://github.com/shruti-banerjee/menstrual-cycle-transcriptomics
+```
+
+**Step 2 — Open `config.R` and set your parameters**
+```r
+GEO_ID        <- "GSE7305"       # swap for any GEO dataset
+PHASE_COL     <- "cycle phase"   # metadata column name
+PHASES        <- c("follicular", "ovulatory", "luteal")
+PVAL_CUTOFF   <- 0.05
+FC_CUTOFF     <- 1.5
+```
+
+**Step 3 — Run scripts in order**
+```r
+source("scripts/01_data_import.R")
+source("scripts/02_preprocess.R")
+source("scripts/03_eda.R")
+source("scripts/04_visualize.R")
+```
+
+**In Google Colab (R):**
+```
+%%R
+# Run config first, then source each script
+source("config.R")
+source("scripts/01_data_import.R")
 ```
 
 ---
 
-## How to Reproduce
+## Scientific Questions This Project Addresses
 
-**In Google Colab (R):**
+This project is designed to be extended. Beyond the primary analysis, the pipeline can be reused to investigate:
 
-```r
-%%R
-install.packages("BiocManager")
-BiocManager::install("GEOquery")
-library(GEOquery)
-library(tidyverse)
-
-gse <- getGEO("GSE7305", GSEMatrix = TRUE)
-```
-
-**In R / RStudio:**
-
-```r
-install.packages("BiocManager")
-BiocManager::install("GEOquery")
-library(GEOquery)
-library(tidyverse)
-
-gse <- getGEO("GSE7305", GSEMatrix = TRUE)
-```
+- **Immune regulation** — which immune genes are suppressed in the luteal phase, and does this explain cycle-linked autoimmune flares?
+- **Drug metabolism** — do CYP enzyme genes fluctuate across phases, meaning drug dosing hits differently week to week?
+- **Disease risk** — do genes linked to endometriosis or PCOS show phase-specific expression in healthy tissue?
+- **Mental health** — which neurological signalling genes change across the cycle, and could this explain cycle-linked depression and anxiety?
 
 ---
 
@@ -183,14 +206,10 @@ Riishede I et al. *Plasma proteomic signature of the human menstrual cycle.* Nat
 
 ---
 
-## Key Biological Question
+## About This Project
 
-This project sits upstream of the Riishede et al. findings. Where their proteomics work reveals *what* fluctuates, transcriptomics reveals *what is driving it* — the gene regulatory architecture behind the monthly biological shift.
-
-Understanding this layer is essential for moving medicine from population-level averages toward **phase-aware, sex-informed treatment.**
+Built during a **Computational Biology internship at NexoraGroup** as an independent portfolio project. Motivated by the intersection of women's health, transcriptomics, and the need for reproducible, open-source bioinformatics tooling.
 
 ---
 
 **Shruti Banerjee** · [banerjee.shruti1306@gmail.com](mailto:banerjee.shruti1306@gmail.com) · [GitHub](https://github.com/shruti-banerjee)
-
-*Developed as part of a Computational Biology internship — June 2026.*
