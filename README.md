@@ -206,9 +206,42 @@ Riishede I et al. *Plasma proteomic signature of the human menstrual cycle.* Nat
 
 ---
 
+## End-to-End Project Journey
+
+This project is built as a complete, documented analysis — from raw public data to biological conclusions. Every step is traceable, reproducible, and interpretable.
+
+```
+RAW DATA                   publicly available expression matrix (NCBI GEO)
+    ↓
+CLEANING                   metadata extraction, phase labelling, normalisation
+    ↓
+ANALYSIS                   differential expression across cycle phases
+    ↓
+VISUALISATION              heatmap · volcano plot · expression timeline
+    ↓
+BIOLOGICAL CONCLUSION      which genes drive cyclic change — and what does that mean clinically?
+```
+
+No black boxes. No skipped steps. Anyone can follow this from start to finish.
+
+---
+
+## What This Project Demonstrates
+
+| Skill Area | Evidence |
+|---|---|
+| **Bioinformatics Analysis** | End-to-end transcriptomic workflow on real clinical data |
+| **Pipeline Engineering** | Modular, config-driven, reusable across any GEO dataset |
+| **Data Wrangling** | tidyverse — dplyr, tidyr, stringr, readr |
+| **Visualisation** | Publication-ready ggplot2 figures |
+| **Reproducible Research** | Fully documented, version-controlled, open source |
+| **Biological Interpretation** | Findings connected to clinical relevance and existing literature |
+
+---
+
 ## About This Project
 
-Built during a **Computational Biology internship at NexoraGroup** as an independent portfolio project. Motivated by the intersection of women's health, transcriptomics, and the need for reproducible, open-source bioinformatics tooling.
+Built during a **Computational Biology internship at NexoraGroup** as an independent portfolio project. Motivated by a 2026 Nature Medicine paper and the absence of a clean, open-source transcriptomic pipeline investigating the same question at the gene level.
 
 ---
 
